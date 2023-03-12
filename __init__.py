@@ -12,12 +12,12 @@ import re
 from flatten_any_dict_iterable_or_whatsoever import fla_tu, set_in_original_iter
 from flatten_everything import flatten_everything
 from tolerant_isinstance import isinstance_tolerant
-
 nested_dict = lambda: defaultdict(nested_dict)
 allvars = sys.modules[__name__]
 reg = re.compile(r"^[-.,\de+]+", flags=re.I)
 
 regint = re.compile(r"^[-\d+]+", flags=re.I)
+from deepcopyall import deepcopy
 
 
 def load_config_file_vars(cfgfile, onezeroasboolean):
@@ -654,7 +654,7 @@ class Cfedit:
                     tk.Button(
                         self.subframe_in_canvas,
                         text=str(bu[0]).center(self.maxlenabsvals),
-                        command=lambda: bu[1](),
+                        command=deepcopy(lambda: bu[1]()),
                         anchor="w", width=self._get_button_len(), font=self.buttonfont,
                         justify=tk.RIGHT,
                     ),
