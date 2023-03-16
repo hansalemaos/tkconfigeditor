@@ -645,7 +645,9 @@ class Cfedit:
         )
 
         if self.addbuttons:
+            buttonposition = True
             for bu in self.addbuttons:
+                buttonposition = not buttonposition
                 maxindex += 1
                 varabx = f"bu{maxindex}"
                 setattr(
@@ -660,8 +662,12 @@ class Cfedit:
                     ),
                 )
                 getattr(getattr(self, varabx), "grid")(
-                    row=maxindex, column=0, padx=1, pady=3
+                    row=maxindex, column=int(buttonposition), padx=1, pady=3
                 )
+                if buttonposition:
+                    maxindex += 1
+                else:
+                    maxindex-=1
 
         self.canvas_in_mainframe.bind("<Enter>", self._bound_to_mousewheel)
         self.canvas_in_mainframe.bind("<Leave>", self._unbound_to_mousewheel)
